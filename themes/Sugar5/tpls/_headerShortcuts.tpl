@@ -35,7 +35,10 @@
  ********************************************************************************/
 
 *}
-{if count($SHORTCUT_MENU) > 0 && $MODULE_TAB != 'Home'}
+{* FG - Bug 41467 - Let Home module to have Shortcuts
+   Old Code : {if count($SHORTCUT_MENU) > 0 && $MODULE_TAB != 'Home'}
+*}
+{if count($SHORTCUT_MENU) > 0}
 <div id="shortcuts" class="headerList">
     <b style="white-space:nowrap;">{$APP.LBL_LINK_ACTIONS}:&nbsp;&nbsp;</b>
     <span>
