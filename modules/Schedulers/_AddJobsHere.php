@@ -429,4 +429,16 @@ function pollMonitoredInboxesForBouncedCampaignEmails() {
 if (file_exists('custom/modules/Schedulers/_AddJobsHere.php')) {
 	require('custom/modules/Schedulers/_AddJobsHere.php');
 }
+
+// FG - Feature # 40128 - Read files from custom/modules/Schedulers/jobs, 
+//                        requiring them in addition to custom/modules/Schedulers/_AddJobsHere.php
+if (is_dir("custom/modules/Schedulers/jobs"))
+{
+    $_files = glob("custom/modules/Schedulers/jobs/*.php");
+    foreach ($_files as $filename) 
+    {
+      require $filename;
+    }
+}
+
 ?>
