@@ -41,7 +41,8 @@ if(!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
  ********************************************************************************/
 require_once('include/externalAPI/ExternalAPIFactory.php');
 
-class UploadFile 
+// FG - Bug 44235 - Changed base class name
+class UploadFile_base 
 {
 	var $field_name;
 	var $stored_file_name;
@@ -51,7 +52,8 @@ class UploadFile
 	var $file;
 	var $file_ext;
 	
-	function UploadFile ($field_name) {
+        // FG - Bug 44235 - Changed constructor
+	function UploadFile_base ($field_name) {
 		// $field_name is the name of your passed file selector field in your form
 		// i.e., for Emails, it is "email_attachmentX" where X is 0-9
 		$this->field_name = $field_name;
@@ -362,4 +364,24 @@ class UploadFile
         return unlink($sugar_config['upload_dir'].$bean_id.$file_name);
     }
 }
+
+
+// FG - Bug 44235 - Introduced new class declaration based on custom...
+if (file_exists('custom/include/upload_file.php'))
+{
+  // custom/include/upload_file.php MUST extend base class, declaring an UploadFile class.
+  require_once 'custom/include/upload_file.php';
+}
+else
+{
+  class UploadFile extends UploadFileBase
+  {
+    function __construct($pFieldName)
+    {
+      $this->UploadFile($pFieldName);
+    }
+  }
+}
+
+
 ?>
