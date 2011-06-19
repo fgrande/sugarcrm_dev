@@ -86,14 +86,18 @@ switch ($_REQUEST['view']) {
         if ($send_module == 'TargetLists')
                 $send_module = 'ProspectLists';
         if ($send_module == 'Targets')
-                $send_module = 'Prospects';                            
-		$helpPath = 'modules/'.$send_module.'/language/'.$send_lang.'.help.'.$send_action.'.html';
+                $send_module = 'Prospects';   
+                // FG - Bug 39819 - Check for custom help files
+                $helpPath = 'modules/'.$send_module.'/language/'.$send_lang.'.help.'.$send_action.'.html';
+                if (sugar_is_file("custom/" . $helpPath))
+                  $helpPath = 'custom/' . $helpPath;
 
 		$sugar_smarty = new Sugar_Smarty();
 
 		//if the language is english then be sure to skip this check, otherwise go to the support
 		//portal if the file is not found.
-		if ($send_lang != 'en_us' && file_exists($helpPath))
+                // FG - Bug 39820 - Devs can write help files also in english, so skip check for language not equals "en_us" !
+		if (file_exists($helpPath))
 		{
 			$sugar_smarty->assign('helpFileExists', TRUE);
 			$sugar_smarty->assign('helpPath', $helpPath);
