@@ -23,6 +23,7 @@ class Bug44338Test extends Sugar_PHPUnit_Framework_TestCase
 	        array('f.grande@pokerspa.it',true),
 	        array('fabio.grande@softwareontheroad.it',true),
 	        array('fabio$grande@softwareontheroad.it',true),
+	        array('ettingshallprimaryschool@wolverhampton.gov.u',false),
 	        );
 	}
     
