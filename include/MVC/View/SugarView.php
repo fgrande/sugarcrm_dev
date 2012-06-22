@@ -832,6 +832,18 @@ EOHTML;
             if(isset( $sugar_config['disc_client']) && $sugar_config['disc_client'])
                 echo getVersionedScript('modules/Sync/headersync.js');
 
+            // FG - Include custom JavaScript, globally available
+            if (!empty($sugar_config['customJS']))
+            {
+              $_arr = $sugar_config['customJS'];
+              if (!is_array(_arr))
+                $_arr = array($sugar_config['customJS']);
+
+              foreach ($_arr as $js)
+              {
+                echo "<script type='text/javascript' src='" . $js . "' />\n";
+              }
+            }
 
             //echo out the $js_vars variables as javascript variables
             echo "<script type='text/javascript'>\n";
